@@ -10,7 +10,7 @@ import UIKit
 
 class CollectionNormalCell: UICollectionViewCell {
 
-    @IBOutlet weak var onLineBtn: UIButton!
+    @IBOutlet weak var onLineLabel: UILabel!
     
     @IBOutlet weak var nickNameLabel: UILabel!
     
@@ -22,9 +22,16 @@ class CollectionNormalCell: UICollectionViewCell {
         
         didSet {
             
-            self.onLineBtn.setTitle("\(anchor!.online)", for: .normal)
+            var onlineCount = ""
+            if anchor!.online > 10000 {
+                onlineCount = String(format: "%d.%d万", anchor!.online / 10000, anchor!.online % 10000 / 1000)
+            } else {
+                onlineCount = "\(anchor!.online)"
+            }
             
-            self.iconImg.sd_setImage(with: URL(string: anchor!.room_src))
+            self.onLineLabel.text = onlineCount
+            
+            self.iconImg.sd_setImage(with: URL(string: anchor!.vertical_src))
             
             self.nickNameLabel.text = anchor!.nickname
             

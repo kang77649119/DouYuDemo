@@ -14,7 +14,7 @@ class Anchor: NSObject {
     var nickname : String = ""
     
     // 房间封面
-    var room_src : String = ""
+    var vertical_src : String = ""
     
     // 房间名称
     var room_name : String = ""

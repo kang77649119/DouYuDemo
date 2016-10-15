@@ -10,18 +10,29 @@ import UIKit
 
 private let itemMargin:CGFloat = 5
 
+// 普通主播房间尺寸
 private let normalItemW:CGFloat = (screenW - 3 * itemMargin) / 2
 private let normalItemH:CGFloat = normalItemW * 3 / 4
 
+// 颜值主播房间尺寸
 private let prettyItemW:CGFloat = (screenW - 3 * itemMargin) / 2
 private let prettyItemH:CGFloat = prettyItemW * 4 / 3
 
+// 轮播视图高度
 private let carouselViewH:CGFloat = screenW * 3 / 8
 
+// 推荐游戏视图高度
+private let recommendGameViewH:CGFloat = 90
+
+// cell标识
 private let recommendNormalCellId = "recommendNormalCellId"
 private let recommendPrettyCellId = "recommendPrettyCellId"
+
+// 头视图标识
 private let sectionHeaderId = "sectionHeaderId"
-private let headerViewH:CGFloat = 50
+
+// 头视图高度
+private let headerViewH:CGFloat = 40
 
 class RecommendVC: UIViewController {
     
@@ -47,7 +58,7 @@ class RecommendVC: UIViewController {
         collectionView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         
         // 设置内边距,显示轮播视图
-        collectionView.contentInset = UIEdgeInsetsMake(carouselViewH, 0, 0, 0)
+        collectionView.contentInset = UIEdgeInsetsMake(carouselViewH + recommendGameViewH, 0, 0, 0)
         collectionView.dataSource = self
         collectionView.delegate = self
         
@@ -68,8 +79,17 @@ class RecommendVC: UIViewController {
     lazy var recommendCarouselView : RecommendCarouselView = {
         
         let carouselView = RecommendCarouselView.initView()
-        carouselView.frame = CGRect(x: 0, y: -carouselViewH, width: screenW, height: carouselViewH)
+        carouselView.frame = CGRect(x: 0, y: -(carouselViewH + recommendGameViewH), width: screenW, height: carouselViewH)
         return carouselView
+        
+    }()
+    
+    // 游戏推荐视图
+    lazy var recommendGameView : RecommendGameView = {
+    
+        let gameView = RecommendGameView.initView()
+        gameView.frame = CGRect(x: 0, y: -recommendGameViewH, width: screenW, height: recommendGameViewH)
+        return gameView
         
     }()
     
@@ -82,11 +102,11 @@ class RecommendVC: UIViewController {
         // 初始化UI
         setupUI()
         
-        // 加载主播数据
-        loadAnchorData()
-        
         // 加载轮播数据
         loadCarouselData()
+        
+        // 加载主播数据
+        loadAnchorData()
         
     }
 
@@ -104,24 +124,35 @@ extension RecommendVC {
         // 添加轮播视图
         collectionView.addSubview(recommendCarouselView)
         
+        // 添加推荐游戏视图
+        collectionView.addSubview(recommendGameView)
+        
     }
     
-    // 加载数据
+    // 加载主播房间数据
     func loadAnchorData() {
         
-        recommentViewModel.loadData { 
+        recommentViewModel.loadData {
+            
+            // 1.加载主播房间数据
             self.collectionView.reloadData()
+            
+            // 2.加载游戏推荐数据
+            self.recommendGameView.anchorGroups = self.recommentViewModel.anchorGroups
+            
         }
     
     }
     
+    // 加载轮播数据
     func loadCarouselData() {
     
-        recommentViewModel.loadCarouselData { 
-            self.recommendCarouselView.carouses = self.recommentViewModel.carouselModels
+        recommentViewModel.loadCarouselData {
+            self.recommendCarouselView.carouselModels = self.recommentViewModel.carouselModels
         }
         
     }
+    
 
 }
 
@@ -133,9 +164,7 @@ extension RecommendVC : UICollectionViewDataSource,UICollectionViewDelegateFlowL
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        
         return self.recommentViewModel.anchorGroups[section].anchors.count
-        
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -165,6 +194,10 @@ extension RecommendVC : UICollectionViewDataSource,UICollectionViewDelegateFlowL
         let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionElementKindSectionHeader.self, withReuseIdentifier: sectionHeaderId, for: indexPath) as! CollectionHeaderView
         
         let anchorGroup = self.recommentViewModel.anchorGroups[indexPath.section]
+        // 前两组的头视图图片与其他组的不同
+        if indexPath.section > 1 {
+            anchorGroup.icon_url = "home_header_normal"
+        }
         headerView.anchorGroup = anchorGroup
         
         return headerView

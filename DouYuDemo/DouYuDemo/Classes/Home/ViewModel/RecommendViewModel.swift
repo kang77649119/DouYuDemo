@@ -81,7 +81,6 @@ extension RecommendViewModel {
             for obj in datas {
                 
                 let group = AnchorGroup(dict: obj)
-                group.icon_url = "home_header_normal"
                 self.anchorGroups.append(group)
             }
             
@@ -119,21 +118,6 @@ extension RecommendViewModel {
         }
     
     }
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
 
 
 }

@@ -9,21 +9,16 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <collectionReusableView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="U6b-Vx-4bR" customClass="CollectionHeaderView" customModule="DouYuDemo" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="320" height="50"/>
+            <rect key="frame" x="0.0" y="0.0" width="320" height="40"/>
             <autoresizingMask key="autoresizingMask"/>
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TR3-QE-44w">
                     <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="10" id="bcK-0N-dIN"/>
+                        <constraint firstAttribute="height" constant="5" id="bcK-0N-dIN"/>
                     </constraints>
                 </view>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="home_header_hot" translatesAutoresizingMaskIntoConstraints="NO" id="Adx-VG-ZPX">
-                    <constraints>
-                        <constraint firstAttribute="height" constant="18" id="D7K-C4-42S"/>
-                        <constraint firstAttribute="width" constant="18" id="RuX-yJ-5D9"/>
-                    </constraints>
-                </imageView>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="home_header_hot" translatesAutoresizingMaskIntoConstraints="NO" id="Adx-VG-ZPX"/>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="最热" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zkR-p7-1Wb">
                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
                     <nil key="textColor"/>
@@ -45,16 +40,17 @@
                 <constraint firstAttribute="trailing" secondItem="TR3-QE-44w" secondAttribute="trailing" id="8vD-gd-9Cc"/>
                 <constraint firstItem="TR3-QE-44w" firstAttribute="top" secondItem="U6b-Vx-4bR" secondAttribute="top" id="Agt-Et-XC2"/>
                 <constraint firstItem="zkR-p7-1Wb" firstAttribute="leading" secondItem="Adx-VG-ZPX" secondAttribute="trailing" constant="5" id="BaL-iG-oa8"/>
-                <constraint firstAttribute="bottom" secondItem="XhF-Vm-5Ag" secondAttribute="bottom" constant="9" id="ByY-TS-1El"/>
+                <constraint firstAttribute="bottom" secondItem="XhF-Vm-5Ag" secondAttribute="bottom" constant="10" id="ByY-TS-1El"/>
                 <constraint firstAttribute="trailing" secondItem="XhF-Vm-5Ag" secondAttribute="trailing" constant="5" id="HpI-mt-Oz8"/>
                 <constraint firstItem="TR3-QE-44w" firstAttribute="leading" secondItem="U6b-Vx-4bR" secondAttribute="leading" id="fNt-4R-f9e"/>
-                <constraint firstAttribute="bottom" secondItem="Adx-VG-ZPX" secondAttribute="bottom" constant="10" id="l8S-pL-DIn"/>
+                <constraint firstAttribute="bottom" secondItem="Adx-VG-ZPX" secondAttribute="bottom" constant="11" id="l8S-pL-DIn"/>
                 <constraint firstItem="Adx-VG-ZPX" firstAttribute="leading" secondItem="U6b-Vx-4bR" secondAttribute="leading" constant="5" id="ovW-Io-bz9"/>
                 <constraint firstAttribute="bottom" secondItem="zkR-p7-1Wb" secondAttribute="bottom" constant="10" id="pTS-H0-i4f"/>
             </constraints>
             <connections>
                 <outlet property="groupName" destination="zkR-p7-1Wb" id="aCh-VE-Vfy"/>
                 <outlet property="iconImg" destination="Adx-VG-ZPX" id="fcP-c2-t63"/>
+                <outlet property="moreBtn" destination="XhF-Vm-5Ag" id="Zya-8U-iTi"/>
             </connections>
             <point key="canvasLocation" x="-529" y="-261"/>
         </collectionReusableView>

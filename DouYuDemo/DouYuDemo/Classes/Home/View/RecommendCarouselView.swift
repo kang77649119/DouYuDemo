@@ -16,11 +16,21 @@ class RecommendCarouselView: UIView {
 
     @IBOutlet weak var pageControl: UIPageControl!
     
+    var carouseTimer : Timer?
+    
     // 轮播数据
-    var carouses:[CarouselModel]? {
+    var carouselModels:[CarouselModel]? {
     
         didSet {
-            self.pageControl.numberOfPages = self.carouses?.count ?? 0
+            
+            // 显示轮播数据
+            self.pageControl.numberOfPages = self.carouselModels?.count ?? 0
+            self.pageControl.isHidden = (self.carouselModels?.count ?? 0) <= 1
+            
+            // 开启轮播
+            stopTimer()
+            startTimer()
+            
             self.collectionView.reloadData()
         }
     
@@ -49,10 +59,12 @@ class RecommendCarouselView: UIView {
         layout.scrollDirection = .horizontal
         
         self.collectionView.dataSource = self
+        self.collectionView.delegate = self
         self.collectionView.isPagingEnabled = true
         self.collectionView.collectionViewLayout = layout
+        self.collectionView.bounces = false
         self.collectionView.showsHorizontalScrollIndicator = false
-        self.collectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: carouselCellId)
+        self.collectionView.register(UINib(nibName: "CarouselViewCell", bundle: nil), forCellWithReuseIdentifier: carouselCellId)
         
     }
 
@@ -61,33 +73,68 @@ class RecommendCarouselView: UIView {
 extension RecommendCarouselView : UICollectionViewDataSource {
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return self.carouses?.count ?? 0
+        
+        let count = self.carouselModels?.count ?? 0
+        // 实现无限轮播(可以确保无限向后滑动)
+        return count * 10000
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: carouselCellId, for: indexPath)
-        
-        if indexPath.item % 2 == 0 {
-            cell.contentView.backgroundColor = UIColor.green
-        } else {
-        
-            cell.contentView.backgroundColor = UIColor.red
-        }
-        
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: carouselCellId, for: indexPath) as! CarouselViewCell
+        let index = indexPath.item % (self.carouselModels!.count)
+        cell.carouseModel = self.carouselModels![index]
         return cell
     }
 
 }
 
+extension RecommendCarouselView : UICollectionViewDelegate {
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        // 对轮播数据个数取模 计算出当前pageControl选中的索引
+        self.pageControl.currentPage = Int((scrollView.contentOffset.x / scrollView.bounds.width)) % self.carouselModels!.count
+    }
+    
+    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+        stopTimer()
+    }
+    
+    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+        startTimer()
+    }
 
+}
 
+extension RecommendCarouselView {
 
+    // 开启定时器,自动开始轮播
+    func startTimer() {
+  
+        self.carouseTimer = Timer.scheduledTimer(timeInterval: 3, target: self, selector: #selector(self.settingCarouse), userInfo: nil, repeats: true)
+        
+        RunLoop.main.add(self.carouseTimer!, forMode: .commonModes)
+        
+    }
+    
+    // 停止定时器
+    func stopTimer() {
+    
+        self.carouseTimer?.invalidate()
+        self.carouseTimer = nil
+        
+    }
+    
+    // 设置轮播
+    @objc func settingCarouse() {
+    
+        let offsetX = self.collectionView.contentOffset.x + self.collectionView.bounds.width
+        let offset = CGPoint(x: offsetX, y: 0)
+        self.collectionView.setContentOffset(offset, animated: true)
+    
+    }
 
-
-
-
-
+}
 
 
 

@@ -60,7 +60,7 @@
                 <outlet property="nickNameBtn" destination="hKv-23-b4K" id="fLd-PW-gSa"/>
                 <outlet property="onLineLabel" destination="t4D-Uh-PFF" id="RuU-Bw-REG"/>
             </connections>
-            <point key="canvasLocation" x="-1" y="-121.5"/>
+            <point key="canvasLocation" x="-420" y="-408"/>
         </collectionViewCell>
     </objects>
     <resources>

@@ -14,7 +14,9 @@ class CollectionHeaderView: UICollectionReusableView {
     
     @IBOutlet weak var groupName: UILabel!
     
-    var anchorGroup : AnchorGroup? {
+    @IBOutlet weak var moreBtn: UIButton!
+    
+    var anchorGroup : BaseGroup? {
     
         didSet {
             self.groupName.text = anchorGroup!.tag_name

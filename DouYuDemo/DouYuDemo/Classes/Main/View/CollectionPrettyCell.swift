@@ -21,11 +21,15 @@ class CollectionPrettyCell: UICollectionViewCell {
         
         didSet {
         
-            self.iconImg.sd_setImage(with: URL(string: anchor!.room_src))
+            self.iconImg.sd_setImage(with: URL(string: anchor!.vertical_src), placeholderImage: UIImage(named: "live_cell_default_phone"))
             
             self.nickNameBtn.setTitle(anchor!.nickname, for: .normal)
             
-            self.onLineLabel.text = "\(anchor!.online)"
+            if anchor!.online >= 10000 {
+                self.onLineLabel.text = String(format: "%d.%d万", anchor!.online / 10000 , anchor!.online % 10000 / 1000)
+            } else {
+                self.onLineLabel.text = "\(anchor!.online)"
+            }
         
         }
         

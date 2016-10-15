@@ -8,11 +8,7 @@
 
 import UIKit
 
-class AnchorGroup: NSObject {
-    
-    var tag_name : String = ""
-    
-    var icon_url : String = "home_header_normal"
+class AnchorGroup: BaseGroup {
     
     var room_list : [[String : AnyObject]]? {
         
@@ -28,31 +24,5 @@ class AnchorGroup: NSObject {
     
     var anchors : [Anchor] = [Anchor]()
     
-    override init() {
-        
-    }
-    
-    init(dict : [String : AnyObject]) {
-        
-        super.init()
-        setValuesForKeys(dict)
-        
-    }
-    
-    override func setValue(_ value: Any?, forUndefinedKey key: String) { }
-    
-//    override func setValue(_ value: Any?, forKey key: String) {
-//        
-//        if key == "room_list" {
-//            
-//            guard let dataArray = value as? [[String : AnyObject]] else { return }
-//            
-//            for data in dataArray {
-//                anchors.append(Anchor(dict: data))
-//            }
-//            
-//        }
-//        
-//    }
 
 }
