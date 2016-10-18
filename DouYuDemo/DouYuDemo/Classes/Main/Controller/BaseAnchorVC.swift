@@ -37,6 +37,7 @@ let headerViewH:CGFloat = 40
 
 class BaseAnchorVC: BaseVC {
     
+    // 父类VM
     var baseAnchorVM:BaseAnchorViewModel!
     
     // 直播间列表
@@ -88,6 +89,7 @@ extension BaseAnchorVC {
         
         super.setupUI()
     }
+    
 }
 
 // MARK: - collectionView数据源

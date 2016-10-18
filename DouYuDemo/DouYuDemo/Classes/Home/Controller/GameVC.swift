@@ -72,16 +72,6 @@ class GameVC: BaseVC {
     
     lazy var gameVM : GameViewModel = GameViewModel()
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
-        // 初始化界面
-        setupUI()
-        
-        // 加载数据
-        loadData()
-        
-    }
 
 }
 
@@ -104,7 +94,7 @@ extension GameVC {
     }
     
     // 加载数据
-    func loadData() {
+    override func loadData() {
     
         gameVM.loadData {
             
@@ -139,7 +129,6 @@ extension GameVC : UICollectionViewDataSource {
         
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: gameViewCellId, for: indexPath) as! GameViewCell
         cell.anchorGroup = self.gameVM.gameModels[indexPath.item]
-        
         return cell
         
     }
@@ -154,34 +143,13 @@ extension GameVC : UICollectionViewDataSource {
         headView.anchorGroup = anchorGroup
         headView.moreBtn.isHidden = true
         headView.placeHolderView.backgroundColor = UIColor.clear
+        
+        // 根据数据来控制头视图的显示与隐藏
+        headView.isHidden = self.gameVM.gameModels.count == 0
+        
         return headView
     
     }
     
-    
-
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

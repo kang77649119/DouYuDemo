@@ -30,7 +30,7 @@ extension RecommendViewModel {
 //    http://capi.douyucdn.cn/api/v1/getHotCate?limit=4&offset=0&time=1476170483.97425
 
     // 请求数据
-    func loadData(finished:@escaping ()->()) {
+    func loadData(finishedCallBack:@escaping ()->()) {
         
         let group = DispatchGroup()
         let parameters = ["limit" : "4", "offset" : "0", "time" : NSDate.getCurrentTime()]
@@ -88,7 +88,7 @@ extension RecommendViewModel {
             self.anchorGroups.insert(self.prettyAnchorGroup, at: 0)
             self.anchorGroups.insert(self.bigAnchorGroup, at: 0)
             
-            finished()
+            finishedCallBack()
             
         }
         

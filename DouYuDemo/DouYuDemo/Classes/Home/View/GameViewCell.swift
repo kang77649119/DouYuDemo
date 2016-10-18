@@ -17,17 +17,13 @@ class GameViewCell: UICollectionViewCell {
         didSet {
             
             gameBtn.setTitle(anchorGroup!.tag_name, for: .normal)
-            
-            guard let url = URL(string: anchorGroup!.icon_url) else {
-                return
+          
+            // 如果图片地址为空时，则显示更多图片
+            if let url = URL(string: anchorGroup!.icon_url) {
+                gameBtn.setImageFor(.normal, with: url)
+            } else {
+                gameBtn.setImage(UIImage(named: "home_more_btn"), for: .normal)
             }
-            
-            if !anchorGroup!.icon_url.contains("http") {
-                gameBtn.setImage(UIImage(named: anchorGroup!.icon_url), for: .normal)
-                return
-            }
-       
-            gameBtn.setImageFor(.normal, with: url)
   
         }
         

@@ -12,7 +12,7 @@ class BaseGroup: NSObject {
 
     var tag_name : String = ""
     
-    var icon_url : String = "home_header_normal"
+    var icon_url : String = ""
     
     override init() {
         

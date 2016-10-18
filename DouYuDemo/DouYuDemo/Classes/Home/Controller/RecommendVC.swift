@@ -30,9 +30,13 @@ class RecommendVC: BaseAnchorVC {
     
     // 推荐VM
     lazy var recommentViewModel = RecommendViewModel()
+
+}
+
+// MARK: - 初始化UI
+extension RecommendVC {
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
+    override func setupUI() {
         
         self.baseAnchorVM = self.recommentViewModel
         
@@ -54,11 +58,6 @@ class RecommendVC: BaseAnchorVC {
         loadAnchorData()
         
     }
-
-}
-
-// MARK: - 初始化UI
-extension RecommendVC {
     
     // 加载主播房间数据
     func loadAnchorData() {
@@ -70,6 +69,7 @@ extension RecommendVC {
             
             // 2.加载游戏推荐数据
             var recommendAnchorGroups = self.recommentViewModel.anchorGroups
+            
             // 去除 推荐和颜值
             recommendAnchorGroups.removeFirst()
             recommendAnchorGroups.removeFirst()
@@ -77,7 +77,6 @@ extension RecommendVC {
             // 添加更多按钮
             let moreGroup = AnchorGroup()
             moreGroup.tag_name = "更多"
-            moreGroup.icon_url = "home_more_btn"
             recommendAnchorGroups.append(moreGroup)
             
             self.recommendGameView.anchorGroups = recommendAnchorGroups

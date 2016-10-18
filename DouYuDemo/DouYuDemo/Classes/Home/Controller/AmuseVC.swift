@@ -12,9 +12,13 @@ class AmuseVC: BaseAnchorVC {
 
     // 娱乐VM
     lazy var amuseVM = AmuseViewModel()
+
+
+}
+
+extension AmuseVC {
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
+    override func setupUI() {
         
         // 1.设置父类中的VM为当前控制器对应的VM
         self.baseAnchorVM = amuseVM
@@ -27,12 +31,8 @@ class AmuseVC: BaseAnchorVC {
         
     }
 
-}
-
-extension AmuseVC {
-
     // 加载数据
-    func loadData() {
+    override func loadData() {
         amuseVM.loadData {
             self.collectionView.reloadData()
             

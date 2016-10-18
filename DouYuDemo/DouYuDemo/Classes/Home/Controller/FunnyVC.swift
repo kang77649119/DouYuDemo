@@ -11,10 +11,13 @@ import UIKit
 class FunnyVC: BaseAnchorVC {
 
     lazy var funnyVM : FunnyViewModel = FunnyViewModel()
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
 
+}
+
+extension FunnyVC {
+
+    override func setupUI() {
+        
         // 1.设置VM
         self.baseAnchorVM = funnyVM
         
@@ -23,7 +26,11 @@ class FunnyVC: BaseAnchorVC {
         
         self.collectionView.contentInset = UIEdgeInsets(top: 5, left: 0, bottom: 0, right: 0)
         
-        // 3.加载数据
+    }
+    
+    // 加载数据
+    override func loadData() {
+        
         funnyVM.loadData {
             
             self.collectionView.reloadData()
@@ -31,7 +38,7 @@ class FunnyVC: BaseAnchorVC {
             // 请求数据完成,隐藏加载动画，显示内容
             self.loadDataFinished()
         }
-        
+    
     }
 
 }

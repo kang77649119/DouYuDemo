@@ -35,6 +35,9 @@ class BaseVC: UIViewController {
         // 初始化UI
         setupUI()
         
+        // 加载数据
+        loadData()
+        
     }
 
 }
@@ -49,6 +52,9 @@ extension BaseVC {
         self.view.addSubview(animateImageView)
         
     }
+    
+    // 加载数据
+    func loadData() {}
     
     // 请求完成后,隐藏加载动画,显示conllectionView
     func loadDataFinished() {
