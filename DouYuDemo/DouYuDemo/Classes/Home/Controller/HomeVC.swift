@@ -67,10 +67,10 @@ extension HomeVC {
         // 1.去除给scrollView添加的内边距
         self.automaticallyAdjustsScrollViewInsets = false
         
-        // 2.设置导航栏左侧
+        // 2.设置导航栏左侧按钮
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(iconName: "logo")
         
-        // 3.设置导航栏右侧
+        // 3.设置导航栏右侧按钮
         let size = CGSize(width: 40, height: 40)
         let historyItem = UIBarButtonItem(iconName: "Image_my_history", size: size)
         let qrcodeItem = UIBarButtonItem(iconName: "Image_scan", size: size)
@@ -84,7 +84,7 @@ extension HomeVC {
 // 遵守PageTitleViewDelegate协议
 extension HomeVC : PageTitleViewDelegate {
 
-    // 菜单点击
+    // 菜单点击,调用pageContentView中的方法,collectionView设置偏移量来显示对应的视图
     func pageTitleViewClick(_ index: Int) {
         self.pageContentView.changeContextViewOffset(index)
     }
@@ -95,9 +95,7 @@ extension HomeVC : PageTitleViewDelegate {
 extension HomeVC : PageContentViewDelegate {
 
     func pageContentViewScroll(_ progress: CGFloat, sourceIndex: Int, targetIndex: Int) {
-
         self.pageTitleView.setSelectedMenuLineOffset(progress, sourceIndex: sourceIndex, targetIndex: targetIndex)
-        
     }
     
 }

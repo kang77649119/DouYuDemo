@@ -17,7 +17,11 @@ class MainController: UITabBarController {
         setupUI()
         
     }
-    
+
+}
+
+extension MainController {
+
     // 初始化UI
     func setupUI() {
         
@@ -38,12 +42,13 @@ class MainController: UITabBarController {
     // 初始化子控制器
     func initChildController(_ title:String, iconName:String, childController:UIViewController) {
         
-        let nav = UINavigationController(rootViewController: childController)
+        let nav = KCustomNavigationController(rootViewController: childController)
         nav.tabBarItem.title = title
         nav.tabBarItem.image = UIImage(named: iconName)!.withRenderingMode(.alwaysOriginal)
         nav.tabBarItem.selectedImage = UIImage(named: iconName + "HL")!.withRenderingMode(.alwaysOriginal)
         self.addChildViewController(nav)
-    
+        
     }
-
+    
 }
+

@@ -62,7 +62,7 @@ class PageTitleView: UIView {
     
         let view = UIView()
         view.backgroundColor = UIColor.orange
-        let w:CGFloat = screenW / CGFloat(4)
+        let w:CGFloat = screenW / CGFloat(self.titles!.count)
         let h:CGFloat = 2
         let y:CGFloat = menuH - h
         view.frame = CGRect(x: 0, y: y, width: w, height: h)
@@ -95,10 +95,10 @@ extension PageTitleView {
         // 1.添加菜单项
         addMenuScrollView()
         
-        // 2.添加底部分隔条
+        // 2.添加菜单与轮播视图之间的分隔线
         addMenuScrollViewBottomLine()
         
-        // 3.添加选中标识
+        // 3.添加菜单选中时的标识线
         addSelectedLine()
         
     }
@@ -109,6 +109,8 @@ extension PageTitleView {
         var labelX:CGFloat = 0
         let labelY:CGFloat = 0
         let labelW:CGFloat = frame.width / CGFloat(self.titles!.count)
+        
+        // 存储菜单项,切换菜单时需要用到
         menuItems = [UILabel]()
         
         for (index,title) in titles!.enumerated() {
@@ -151,20 +153,20 @@ extension PageTitleView {
         self.addSubview(selectedMenuLine)
     }
     
-    // 菜单点击
+    // 菜单点击(切换选中的菜单项以及对应菜单的视图)
     func menuClick(_ ges:UITapGestureRecognizer) {
         
-        // 1.上次选中的菜单项恢复灰色
+        // 1.恢复上次选中的菜单项颜色
         self.storedMenuLabel!.textColor = UIColor.darkGray
         
         // 2.获取点击的菜单项，设置文字颜色
         let targetLabel = ges.view as! UILabel
         targetLabel.textColor = UIColor.orange
         
-        // 3.存储点击的菜单项
+        // 3.存储本次点击的菜单项
         self.storedMenuLabel = targetLabel
         
-        // 4.菜单项选中标识位置更改
+        // 4.选中标识线滑动至本次点击的菜单项位置上
         UIView.animate(withDuration: 0.15) { 
             self.selectedMenuLine.frame.origin.x = targetLabel.frame.origin.x
         }
@@ -178,21 +180,31 @@ extension PageTitleView {
 
 extension PageTitleView {
 
+    // 滑动视图时，菜单项从选中渐变至非选中状态
     func setSelectedMenuLineOffset(_ progress:CGFloat, sourceIndex:Int, targetIndex:Int) {
         
+        // 已选中的label
         let sourceLabel = self.menuItems![sourceIndex]
+        
+        // 滑动过程中即将选中的label
         let targetLabel = self.menuItems![targetIndex]
         
         // 1.选中标识移动
         let moveTotalX = targetLabel.frame.origin.x - sourceLabel.frame.origin.x
+        
+        // 两个label的间距 乘以 进度 获得滑动过程中的位置偏移量
         let moveX = moveTotalX * progress
+        
+        // 设置选中标识的位置
         self.selectedMenuLine.frame.origin.x = sourceLabel.frame.origin.x + moveX
         
         // 2.文字颜色渐变
         let colorRange = (selectedColor.0 - normalColor.0, g: selectedColor.1 - normalColor.1, b: selectedColor.2 - normalColor.2)
         
+        // 已经选中的菜单项颜色逐渐变浅
         sourceLabel.textColor = UIColor(r: selectedColor.0 - colorRange.0 * progress, g: selectedColor.1 - colorRange.1 * progress, b: selectedColor.2 - colorRange.2 * progress)
         
+        // 即将被选中的菜单项颜色逐渐加深
         targetLabel.textColor = UIColor(r: normalColor.0 + colorRange.0 * progress, g: normalColor.1 + colorRange.1 * progress, b: normalColor.2 + colorRange.2 * progress)
         
         // 3.保存选中的菜单项

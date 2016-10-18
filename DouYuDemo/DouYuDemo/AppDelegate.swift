@@ -16,30 +16,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         
-        // 1.设置导航条样式
-        setupNavStyle()
-        
-        // 2.设置tabBar样式
+        // 1.设置tabBar样式
         setupTabbarStyle()
         
-        // 3.设置根控制器
+        // 2.设置根控制器
         self.window = UIWindow(frame: UIScreen.main.bounds)
         self.window?.rootViewController = MainController()
         self.window?.makeKeyAndVisible()
         
         return true
     }
-    
-    // 设置导航条样式
-    func setupNavStyle() {
-    
-        UIApplication.shared.statusBarStyle = .lightContent
-        
-        let navAppearance = UINavigationBar.appearance()
-        navAppearance.barTintColor = UIColor.orange
-        
-    }
-    
+
+}
+
+extension AppDelegate {
     
     // 设置tabBar样式
     func setupTabbarStyle() {
@@ -51,7 +41,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         tabBarItemAppearance.setTitleTextAttributes(normalTextAttrs, for: .normal)
         
     }
-
 
 }
 

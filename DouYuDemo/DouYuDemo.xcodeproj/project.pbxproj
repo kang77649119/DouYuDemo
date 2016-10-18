@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		3F01702A1DA7593A000A07A5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F0170291DA7593A000A07A5 /* AppDelegate.swift */; };
-		3F01702C1DA7593A000A07A5 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F01702B1DA7593A000A07A5 /* ViewController.swift */; };
 		3F44E9F91DB0B0AE00DF8059 /* GameVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F44E9F81DB0B0AE00DF8059 /* GameVC.swift */; };
 		3F44E9FD1DB0BF4400DF8059 /* BaseGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F44E9FC1DB0BF4400DF8059 /* BaseGroup.swift */; };
 		3F44E9FF1DB0BFAD00DF8059 /* GameModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F44E9FE1DB0BFAD00DF8059 /* GameModel.swift */; };
@@ -30,6 +29,7 @@
 		3F6E865A1DB5CD4C00B7BDE7 /* PrettyRoomVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F6E86561DB5CD4C00B7BDE7 /* PrettyRoomVC.swift */; };
 		3F6E865B1DB5CD4C00B7BDE7 /* RoomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F6E86591DB5CD4C00B7BDE7 /* RoomView.swift */; };
 		3F6E865D1DB5CDA000B7BDE7 /* NormalRoomVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F6E865C1DB5CDA000B7BDE7 /* NormalRoomVC.swift */; };
+		3F6E865F1DB605A100B7BDE7 /* KCustomNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F6E865E1DB605A100B7BDE7 /* KCustomNavigationController.swift */; };
 		3F716F201DB226DB0082F7DC /* RoomViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F716F1F1DB226DB0082F7DC /* RoomViewModel.swift */; };
 		3F72BCF61DAF28C50069E72C /* CarouselViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F72BCF41DAF28C50069E72C /* CarouselViewCell.swift */; };
 		3F72BCF71DAF28C50069E72C /* CarouselViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3F72BCF51DAF28C50069E72C /* CarouselViewCell.xib */; };
@@ -63,8 +63,7 @@
 /* Begin PBXFileReference section */
 		3F0170261DA7593A000A07A5 /* DouYuDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DouYuDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3F0170291DA7593A000A07A5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		3F01702B1DA7593A000A07A5 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		3F0170351DA7593A000A07A5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Info.plist; path = ../../Info.plist; sourceTree = "<group>"; };
+		3F0170351DA7593A000A07A5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3F44E9F81DB0B0AE00DF8059 /* GameVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameVC.swift; sourceTree = "<group>"; };
 		3F44E9FC1DB0BF4400DF8059 /* BaseGroup.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseGroup.swift; sourceTree = "<group>"; };
 		3F44E9FE1DB0BFAD00DF8059 /* GameModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameModel.swift; sourceTree = "<group>"; };
@@ -86,6 +85,7 @@
 		3F6E86561DB5CD4C00B7BDE7 /* PrettyRoomVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrettyRoomVC.swift; sourceTree = "<group>"; };
 		3F6E86591DB5CD4C00B7BDE7 /* RoomView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoomView.swift; sourceTree = "<group>"; };
 		3F6E865C1DB5CDA000B7BDE7 /* NormalRoomVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NormalRoomVC.swift; sourceTree = "<group>"; };
+		3F6E865E1DB605A100B7BDE7 /* KCustomNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KCustomNavigationController.swift; sourceTree = "<group>"; };
 		3F716F1F1DB226DB0082F7DC /* RoomViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoomViewModel.swift; sourceTree = "<group>"; };
 		3F72BCF41DAF28C50069E72C /* CarouselViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CarouselViewCell.swift; sourceTree = "<group>"; };
 		3F72BCF51DAF28C50069E72C /* CarouselViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CarouselViewCell.xib; sourceTree = "<group>"; };
@@ -154,7 +154,7 @@
 				3F01703B1DA75C3D000A07A5 /* Classes */,
 				3FBB64391DA769BC00A26FF7 /* Assets.xcassets */,
 				3F0170291DA7593A000A07A5 /* AppDelegate.swift */,
-				3F01702B1DA7593A000A07A5 /* ViewController.swift */,
+				3F0170351DA7593A000A07A5 /* Info.plist */,
 			);
 			path = DouYuDemo;
 			sourceTree = "<group>";
@@ -223,11 +223,10 @@
 		3F0170451DA75C3D000A07A5 /* Main */ = {
 			isa = PBXGroup;
 			children = (
-				3FE5952D1DAA831F0047BF51 /* Controller */,
 				3FFEC7171DB387F20099CC0D /* ViewModel */,
 				3FE5952F1DAA831F0047BF51 /* Model */,
 				3FE595301DAA831F0047BF51 /* View */,
-				3F0170351DA7593A000A07A5 /* Info.plist */,
+				3FE5952D1DAA831F0047BF51 /* Controller */,
 			);
 			path = Main;
 			sourceTree = "<group>";
@@ -401,6 +400,7 @@
 				3FE5952E1DAA831F0047BF51 /* MainController.swift */,
 				3FFEC71C1DB38C330099CC0D /* BaseAnchorVC.swift */,
 				3F6E86521DB5BAA400B7BDE7 /* BaseVC.swift */,
+				3F6E865E1DB605A100B7BDE7 /* KCustomNavigationController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -593,7 +593,7 @@
 				3F72BCF61DAF28C50069E72C /* CarouselViewCell.swift in Sources */,
 				3FBB64461DA7A38C00A26FF7 /* PageContentView.swift in Sources */,
 				3F44E9FF1DB0BFAD00DF8059 /* GameModel.swift in Sources */,
-				3F01702C1DA7593A000A07A5 /* ViewController.swift in Sources */,
+				3F6E865F1DB605A100B7BDE7 /* KCustomNavigationController.swift in Sources */,
 				3F44EA051DB0D9F900DF8059 /* GameViewModel.swift in Sources */,
 				3F77872F1DACC02B00080C04 /* NetWorkTools.swift in Sources */,
 				3FFEC7191DB388220099CC0D /* BaseAnchorViewModel.swift in Sources */,

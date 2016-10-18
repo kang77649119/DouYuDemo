@@ -91,14 +91,11 @@ extension RecommendVC {
     
     // 加载轮播数据
     func loadCarouselData() {
-    
         recommentViewModel.loadCarouselData {
             self.recommendCarouselView.carouselModels = self.recommentViewModel.carouselModels
         }
-        
     }
     
-
 }
 
 extension RecommendVC {

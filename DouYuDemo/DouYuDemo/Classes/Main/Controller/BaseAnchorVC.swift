@@ -138,8 +138,6 @@ extension BaseAnchorVC : UICollectionViewDataSource,UICollectionViewDelegateFlow
     
 }
 
-
-
 extension BaseAnchorVC : UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
@@ -147,9 +145,12 @@ extension BaseAnchorVC : UICollectionViewDelegate {
         let anchor = self.baseAnchorVM.anchorGroups[indexPath.section].anchors[indexPath.item]
         let anchorType = anchor.isVertical
         if anchorType == 0 {
-        
-            let normalRoomVC = NormalRoomVC()
-            print( self.navigationController )
+            
+            let childs = UIApplication.shared.keyWindow?.rootViewController?.childViewControllers
+            // 获取导航栏
+            let nav = childs?.first as! KCustomNavigationController
+            nav.pushViewController(NormalRoomVC(), animated: true)
+            
             
         } else {
             
