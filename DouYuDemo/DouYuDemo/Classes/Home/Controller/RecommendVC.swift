@@ -8,74 +8,9 @@
 
 import UIKit
 
-private let itemMargin:CGFloat = 5
-
-// 普通主播房间尺寸
-private let normalItemW:CGFloat = (screenW - 3 * itemMargin) / 2
-private let normalItemH:CGFloat = normalItemW * 3 / 4
-
-// 颜值主播房间尺寸
-private let prettyItemW:CGFloat = (screenW - 3 * itemMargin) / 2
-private let prettyItemH:CGFloat = prettyItemW * 4 / 3
-
-// 轮播视图高度
-private let carouselViewH:CGFloat = screenW * 3 / 8
-
-// 推荐游戏视图高度
-private let recommendGameViewH:CGFloat = 90
-
-// cell标识
-private let recommendNormalCellId = "recommendNormalCellId"
-private let recommendPrettyCellId = "recommendPrettyCellId"
-
-// 头视图标识
-private let sectionHeaderId = "sectionHeaderId"
-
-// 头视图高度
-private let headerViewH:CGFloat = 40
-
-class RecommendVC: UIViewController {
+class RecommendVC: BaseAnchorVC {
     
-    // 主播数据视图
-    lazy var collectionView:UICollectionView = {
-    
-        let layout = UICollectionViewFlowLayout()
-        layout.itemSize = CGSize(width: normalItemW, height: normalItemH)
-        layout.scrollDirection = .vertical
-        layout.minimumLineSpacing = 0
-        layout.minimumInteritemSpacing = itemMargin
-        // 设置内边距
-        layout.sectionInset = UIEdgeInsetsMake(0, itemMargin, 0, itemMargin)
-        // 设置组头
-        layout.headerReferenceSize = CGSize(width: screenW, height: headerViewH)
-        
-        // 给collectionView设置大小,此时的大小为全屏大小,所以在下面添加约束,当视图大小发生变化时,collectionView也跟着变化
-        let collectionView:UICollectionView = UICollectionView(frame: self.view.bounds, collectionViewLayout: layout)
-        collectionView.showsVerticalScrollIndicator = true
-        collectionView.backgroundColor = UIColor.white
-        
-        // 设置约束,collectionView跟随view的大小变化而等比变化
-        collectionView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        
-        // 设置内边距,显示轮播视图
-        collectionView.contentInset = UIEdgeInsetsMake(carouselViewH + recommendGameViewH, 0, 0, 0)
-        collectionView.dataSource = self
-        collectionView.delegate = self
-        
-        // 普通cell
-        collectionView.register(UINib(nibName: "CollectionNormalCell", bundle: nil), forCellWithReuseIdentifier: recommendNormalCellId)
-        
-        // 颜值cell
-        collectionView.register(UINib(nibName: "CollectionPrettyCell", bundle: nil), forCellWithReuseIdentifier: recommendPrettyCellId)
-        
-        // 注册头视图view
-        collectionView.register(UINib(nibName: "CollectionHeaderView", bundle: nil), forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: sectionHeaderId)
-        
-        return collectionView
-    
-    }()
-    
-    // 轮播视图
+    // 轮播
     lazy var recommendCarouselView : RecommendCarouselView = {
         
         let carouselView = RecommendCarouselView.initView()
@@ -93,14 +28,24 @@ class RecommendVC: UIViewController {
         
     }()
     
-    // viewModel
+    // 推荐VM
     lazy var recommentViewModel = RecommendViewModel()
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // 初始化UI
-        setupUI()
+        self.baseAnchorVM = self.recommentViewModel
+        
+        // 添加直播间collectionView
+        super.setupUI()
+        
+        // 添加轮播视图
+        collectionView.addSubview(recommendCarouselView)
+        
+        // 添加推荐游戏视图
+        collectionView.addSubview(recommendGameView)
+        
+        collectionView.contentInset = UIEdgeInsetsMake(carouselViewH + recommendGameViewH, 0, 0, 0)
         
         // 加载轮播数据
         loadCarouselData()
@@ -114,20 +59,6 @@ class RecommendVC: UIViewController {
 
 // MARK: - 初始化UI
 extension RecommendVC {
-
-    // 初始化UI
-    func setupUI() {
-        
-        // 添加表格视图
-        self.view.addSubview(collectionView)
-        
-        // 添加轮播视图
-        collectionView.addSubview(recommendCarouselView)
-        
-        // 添加推荐游戏视图
-        collectionView.addSubview(recommendGameView)
-        
-    }
     
     // 加载主播房间数据
     func loadAnchorData() {
@@ -138,10 +69,24 @@ extension RecommendVC {
             self.collectionView.reloadData()
             
             // 2.加载游戏推荐数据
-            self.recommendGameView.anchorGroups = self.recommentViewModel.anchorGroups
+            var recommendAnchorGroups = self.recommentViewModel.anchorGroups
+            // 去除 推荐和颜值
+            recommendAnchorGroups.removeFirst()
+            recommendAnchorGroups.removeFirst()
+            
+            // 添加更多按钮
+            let moreGroup = AnchorGroup()
+            moreGroup.tag_name = "更多"
+            moreGroup.icon_url = "home_more_btn"
+            recommendAnchorGroups.append(moreGroup)
+            
+            self.recommendGameView.anchorGroups = recommendAnchorGroups
+            
+            // 请求数据完成,隐藏加载动画，显示内容
+            self.loadDataFinished()
             
         }
-    
+        
     }
     
     // 加载轮播数据
@@ -156,25 +101,15 @@ extension RecommendVC {
 
 }
 
-// MARK: - collectionView数据源
-extension RecommendVC : UICollectionViewDataSource,UICollectionViewDelegateFlowLayout {
+extension RecommendVC {
 
-    func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return self.recommentViewModel.anchorGroups.count
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return self.recommentViewModel.anchorGroups[section].anchors.count
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+    override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
+        // section = 1 颜值组
         if indexPath.section == 1 {
             
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: recommendPrettyCellId, for: indexPath) as! CollectionPrettyCell
-            
             cell.anchor = self.recommentViewModel.anchorGroups[indexPath.section].anchors[indexPath.item]
-            
             return cell
             
             
@@ -189,7 +124,7 @@ extension RecommendVC : UICollectionViewDataSource,UICollectionViewDelegateFlowL
         
     }
     
-    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+    override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         
         let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionElementKindSectionHeader.self, withReuseIdentifier: sectionHeaderId, for: indexPath) as! CollectionHeaderView
         
@@ -204,15 +139,15 @@ extension RecommendVC : UICollectionViewDataSource,UICollectionViewDelegateFlowL
     }
     
     // 设置cell的itemSize
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-    
+    override func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        
         if indexPath.section == 1 {
             return CGSize(width: prettyItemW, height: prettyItemH)
         }
         
         return CGSize(width: normalItemW, height: normalItemW)
-    
+        
     }
-    
 
 }
+

@@ -8,10 +8,7 @@
 
 import UIKit
 
-class RecommendViewModel: NSObject {
-    
-    // 所有数据
-    lazy var anchorGroups = [AnchorGroup]()
+class RecommendViewModel: BaseAnchorViewModel {
     
     // 推荐
     lazy var bigAnchorGroup:AnchorGroup = AnchorGroup()
@@ -49,7 +46,6 @@ extension RecommendViewModel {
             
             let datas:[[String : AnyObject]] = json["data"] as! [[String : AnyObject]]
             for obj in datas {
-                
                 self.bigAnchorGroup.anchors.append(Anchor(dict: obj))
             }
             group.leave()

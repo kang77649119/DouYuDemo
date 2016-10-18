@@ -12,7 +12,7 @@ extension NSDate {
 
     // 获取时间戳
     class func getCurrentTime() -> String {
-        return "\(NSDate().timeIntervalSince1970)"
+        return "\(Int(NSDate().timeIntervalSince1970))"
     }
 
 }

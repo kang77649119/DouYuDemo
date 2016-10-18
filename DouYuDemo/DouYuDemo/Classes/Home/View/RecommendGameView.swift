@@ -12,19 +12,9 @@ private let gameViewCellId = "gameViewCellId"
 
 class RecommendGameView: UIView {
     
-    var anchorGroups : [AnchorGroup]? {
+    var anchorGroups : [BaseGroup]? {
     
         didSet {
-            
-            // 去除 推荐和颜值
-            self.anchorGroups?.removeFirst()
-            self.anchorGroups?.removeFirst()
-            
-            let moreGroup = AnchorGroup()
-            moreGroup.tag_name = "更多"
-            moreGroup.icon_url = "home_more_btn"
-            self.anchorGroups?.append(moreGroup)
-            
             self.collectionView.reloadData()
         }
     

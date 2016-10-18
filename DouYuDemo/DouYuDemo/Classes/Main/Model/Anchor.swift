@@ -10,6 +10,9 @@ import UIKit
 
 class Anchor: NSObject {
     
+    // 房间id
+    var room_id : String = ""
+    
     // 主播昵称
     var nickname : String = ""
     

@@ -18,14 +18,15 @@ class GameViewCell: UICollectionViewCell {
             
             gameBtn.setTitle(anchorGroup!.tag_name, for: .normal)
             
-            if anchorGroup?.icon_url == "home_more_btn" {
-                gameBtn.setImage(UIImage(named: "home_more_btn"), for: .normal)
-                return
-            }
-            
             guard let url = URL(string: anchorGroup!.icon_url) else {
                 return
             }
+            
+            if !anchorGroup!.icon_url.contains("http") {
+                gameBtn.setImage(UIImage(named: anchorGroup!.icon_url), for: .normal)
+                return
+            }
+       
             gameBtn.setImageFor(.normal, with: url)
   
         }

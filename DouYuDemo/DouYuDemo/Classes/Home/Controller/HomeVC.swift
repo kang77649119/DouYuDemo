@@ -27,7 +27,7 @@ class HomeVC: UIViewController {
         let y = statusBarH + navBarH + menuH
         let h = screenH - statusBarH - navBarH - menuH - tabBarH
         let frame = CGRect(x: 0, y: y, width: screenW, height: h)
-        let childControllers = [ RecommendVC(), GameVC(), FocusVC(), MineVC() ]
+        let childControllers = [ RecommendVC(), GameVC(), AmuseVC(), FunnyVC() ]
         let pageContentView:PageContentView = PageContentView(childControllers: childControllers, parentController: self!, frame: frame)
         pageContentView.delegate = self
         return pageContentView
@@ -101,17 +101,5 @@ extension HomeVC : PageContentViewDelegate {
     }
     
 }
-
-
-
-
-
-
-
-
-
-
-
-
 
 

@@ -15,9 +15,9 @@ private let gameViewW : CGFloat = (screenW - 2 * itemMargin) / 3
 private let gameViewCellId = "gameViewCellId"
 private let gameHeadViewId = "gameHeadViewId"
 private let gameHeadViewH : CGFloat = 40
-private let gameCommonViewH : CGFloat = 130
+private let gameCommonViewH : CGFloat = 90
 
-class GameVC: UIViewController {
+class GameVC: BaseVC {
     
     // 全部
     lazy var collectionView : UICollectionView = {
@@ -33,21 +33,40 @@ class GameVC: UIViewController {
         let h = screenH - statusBarH - navBarH - tabBarH - gameCommonViewH
         let frame = CGRect(x: 0, y: gameCommonViewH, width: screenW, height: h)
         let collectionView : UICollectionView = UICollectionView(frame: self.view.bounds, collectionViewLayout: layout)
-        collectionView.contentInset = UIEdgeInsetsMake(gameCommonViewH, 0, 0, 0)
+        collectionView.contentInset = UIEdgeInsetsMake(gameCommonViewH +  gameHeadViewH, 0, 0, 0)
         collectionView.backgroundColor = UIColor.white
         collectionView.register(UINib(nibName: "GameViewCell", bundle: nil), forCellWithReuseIdentifier: gameViewCellId)
         collectionView.register(UINib(nibName: "CollectionHeaderView", bundle: nil), forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: gameHeadViewId)
         collectionView.dataSource = self
+        collectionView.autoresizingMask = [ .flexibleWidth, .flexibleHeight ]
         return collectionView
     
     }()
     
-    // 常用
-    lazy var commonView : GameCommonView  = {
+    // 常用headView
+    lazy var commonHeaderView:CollectionHeaderView = {
+    
+        let headerView:CollectionHeaderView = CollectionHeaderView.initView()
+        headerView.isHidden = true
+        headerView.frame = CGRect(x: 0, y: -(gameHeadViewH + gameCommonViewH), width: screenW, height: gameHeadViewH)
+
+        let baseGroup = BaseGroup()
+        baseGroup.icon_url = "Img_orange"
+        baseGroup.tag_name = "常用"
+        headerView.moreBtn.isHidden = true
+        headerView.placeHolderView.backgroundColor = UIColor.clear
+        headerView.anchorGroup = baseGroup
         
-        let commonView : GameCommonView = GameCommonView.initView()
-        commonView.frame = CGRect(x: 0, y: -gameCommonViewH, width: screenW, height: gameCommonViewH)
-        return commonView
+        return headerView
+    
+    }()
+    
+    // 常用游戏视图
+    lazy var commonGameView : RecommendGameView  = {
+        
+        let commonGameView : RecommendGameView = RecommendGameView.initView()
+        commonGameView.frame = CGRect(x: 0, y: -gameCommonViewH, width: screenW, height: gameCommonViewH)
+        return commonGameView
         
     }()
     
@@ -69,11 +88,18 @@ class GameVC: UIViewController {
 extension GameVC {
 
     // 初始化界面
-    func setupUI() {
+    override func setupUI() {
         
-        collectionView.autoresizingMask = [ .flexibleWidth, .flexibleHeight ]
+        // 1.添加全部
         self.view.addSubview(collectionView)
-        collectionView.addSubview(self.commonView)
+        
+        super.setupUI()
+        
+        // 2.添加常用游戏头视图
+        collectionView.addSubview(commonHeaderView)
+        
+        // 3.添加常用游戏视图
+        collectionView.addSubview(commonGameView)
         
     }
     
@@ -83,10 +109,20 @@ extension GameVC {
         gameVM.loadData {
             
             // 全部
-            self.collectionView.reloadData()
+            if self.gameVM.gameModels.count > 0 {
+                self.collectionView.reloadData()
+            }
             
-            // 常用
-            self.commonView.gameModels = self.gameVM.gameModels
+            // 常用(官方app的规则是点击全部中的任意一个游戏,在常用中就增加该游戏)
+            if self.gameVM.gameModels.count > 10 {
+                self.commonHeaderView.isHidden = false
+                let commonGames = Array(self.gameVM.gameModels[0..<10])
+                self.commonGameView.anchorGroups = commonGames
+            }
+            
+            // 请求数据完成,隐藏加载动画，显示内容
+            self.loadDataFinished()
+           
         }
     
     }
@@ -117,10 +153,12 @@ extension GameVC : UICollectionViewDataSource {
         anchorGroup.icon_url = "Img_orange"
         headView.anchorGroup = anchorGroup
         headView.moreBtn.isHidden = true
-        
+        headView.placeHolderView.backgroundColor = UIColor.clear
         return headView
     
     }
+    
+    
 
 }
 

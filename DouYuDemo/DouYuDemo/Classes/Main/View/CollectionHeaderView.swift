@@ -10,11 +10,17 @@ import UIKit
 
 class CollectionHeaderView: UICollectionReusableView {
     
+    // 图标
     @IBOutlet weak var iconImg: UIImageView!
     
+    // 组名
     @IBOutlet weak var groupName: UILabel!
     
+    // 更多按钮
     @IBOutlet weak var moreBtn: UIButton!
+    
+    // 占位view
+    @IBOutlet weak var placeHolderView: UIView!
     
     var anchorGroup : BaseGroup? {
     
@@ -25,4 +31,14 @@ class CollectionHeaderView: UICollectionReusableView {
     
     }
     
+}
+
+extension CollectionHeaderView {
+
+    class func initView() -> CollectionHeaderView {
+        
+        return Bundle.main.loadNibNamed("CollectionHeaderView", owner: nil, options: nil)?.first as! CollectionHeaderView
+        
+    }
+
 }

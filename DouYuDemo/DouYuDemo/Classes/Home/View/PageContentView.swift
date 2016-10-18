@@ -89,8 +89,6 @@ extension PageContentView : UICollectionViewDataSource {
         
         let childView = self.childControllers![indexPath.item].view
         childView!.frame = cell.contentView.bounds
-        childView!.backgroundColor = UIColor(red: CGFloat(arc4random_uniform(255)) / 255, green: CGFloat(arc4random_uniform(255)) / 255, blue: CGFloat(arc4random_uniform(255)) / 255, alpha: 1.0)
-        
         cell.contentView.addSubview(childView!)
         
         return cell
