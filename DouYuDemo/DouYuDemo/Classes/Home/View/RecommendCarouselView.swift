@@ -52,8 +52,8 @@ class RecommendCarouselView: UIView {
     override func layoutSubviews() {
         super.layoutSubviews()
      
-        let layout = UICollectionViewFlowLayout()
-        layout.itemSize = self.bounds.size
+        let layout = self.collectionView.collectionViewLayout as! UICollectionViewFlowLayout
+        layout.itemSize = self.collectionView.bounds.size
         layout.minimumLineSpacing = 0
         layout.minimumInteritemSpacing = 0
         layout.scrollDirection = .horizontal
@@ -61,7 +61,6 @@ class RecommendCarouselView: UIView {
         self.collectionView.dataSource = self
         self.collectionView.delegate = self
         self.collectionView.isPagingEnabled = true
-        self.collectionView.collectionViewLayout = layout
         self.collectionView.bounces = false
         self.collectionView.showsHorizontalScrollIndicator = false
         self.collectionView.register(UINib(nibName: "CarouselViewCell", bundle: nil), forCellWithReuseIdentifier: carouselCellId)

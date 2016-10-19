@@ -17,22 +17,25 @@
                 <subviews>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ueo-59-9bx" customClass="VerticalButton" customModule="DouYuDemo" customModuleProvider="target">
                         <constraints>
-                            <constraint firstAttribute="height" constant="80" id="AcP-xK-9Zo"/>
-                            <constraint firstAttribute="width" constant="80" id="vPf-yU-aCr"/>
+                            <constraint firstAttribute="height" constant="60" id="AcP-xK-9Zo"/>
+                            <constraint firstAttribute="width" constant="60" id="vPf-yU-aCr"/>
                         </constraints>
                         <state key="normal" title="Button"/>
                     </button>
                 </subviews>
             </view>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             <constraints>
-                <constraint firstItem="ueo-59-9bx" firstAttribute="centerY" secondItem="gTV-IL-0wX" secondAttribute="centerY" id="A9q-XS-DbK"/>
-                <constraint firstItem="ueo-59-9bx" firstAttribute="centerX" secondItem="gTV-IL-0wX" secondAttribute="centerX" id="qB3-DP-g4b"/>
+                <constraint firstItem="ueo-59-9bx" firstAttribute="centerX" secondItem="gTV-IL-0wX" secondAttribute="centerX" constant="0.5" id="57M-J6-5eu"/>
+                <constraint firstItem="ueo-59-9bx" firstAttribute="centerY" secondItem="gTV-IL-0wX" secondAttribute="centerY" constant="-7" id="A9q-XS-DbK"/>
+                <constraint firstItem="ueo-59-9bx" firstAttribute="centerY" secondItem="gTV-IL-0wX" secondAttribute="centerY" constant="-7" id="X0a-Jx-T9M"/>
+                <constraint firstItem="ueo-59-9bx" firstAttribute="centerX" secondItem="gTV-IL-0wX" secondAttribute="centerX" constant="0.5" id="qB3-DP-g4b"/>
             </constraints>
             <size key="customSize" width="94" height="65"/>
             <connections>
                 <outlet property="gameBtn" destination="ueo-59-9bx" id="oD2-0U-oB3"/>
             </connections>
-            <point key="canvasLocation" x="-369" y="-379"/>
+            <point key="canvasLocation" x="-542" y="-647"/>
         </collectionViewCell>
     </objects>
 </document>

@@ -23,6 +23,8 @@ extension BaseAnchorViewModel {
             
             guard let json = response else { return }
             
+            self.anchorGroups.removeAll()
+            
             let datas:[[String : AnyObject]] = json["data"] as! [[String : AnyObject]]
             
             if isGroup {

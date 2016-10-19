@@ -49,6 +49,7 @@ extension RecommendVC {
         // 添加推荐游戏视图
         collectionView.addSubview(recommendGameView)
         
+        // 设置collectionView的内边距
         collectionView.contentInset = UIEdgeInsetsMake(carouselViewH + recommendGameViewH, 0, 0, 0)
         
         // 加载轮播数据
